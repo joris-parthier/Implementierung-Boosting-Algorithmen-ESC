@@ -36,5 +36,5 @@ Stellvertretend für die Sprachen eines jeden Landes berechneten wir diese Dista
 
 **Tabelle 1:** Eine Similaritätsmatrix basierend auf selbst berechneten Levenshtein-Distanzen für 10 beliebig ausgewählte europäische Länder
 
-Weitere Berechnungen sehen sie hier: https://github.com/joris-parthier/Implementierung-Boosting-Algorithmen-ESC/blob/main/Levenshtein-Distanz/LDN.csv
+Weitere Berechnungen sehen Sie hier: https://github.com/joris-parthier/Implementierung-Boosting-Algorithmen-ESC/blob/main/Levenshtein-Distanz/LDN.csv
 
