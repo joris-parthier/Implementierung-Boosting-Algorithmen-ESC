@@ -1,61 +1,82 @@
-# Mahalanobis Distanz
+Kovarianzmatrix
 
-Die Mahalanobis-Distanz (MD) ist ein Distanzmaß im multivariaten Raum, das im Gegensatz zur euklidischen Distanz sowohl die Korrelation zwischen den Variablen als auch die Streuung der Daten berücksichtigt. Sie dient der Messung der Ähnlichkeit zweier Punkte unter Berücksichtigung der statistischen Eigenschaften der Verteilung.
+Die Kovarianzmatrix wird berechnet als:
 
-## Mathematische Definition
+\[
+\Sigma = \frac{1}{N} X^T X
+\]
 
-Die Mahalanobis-Distanz wird durch folgende Formel definiert:
+---
 
-$$
-D_M(x) = \sqrt{(x-\mu)^T S^{-1} (x-\mu)}
-$$
+# Kovarianz Singular Value Decomposition (SVD)
 
-wobei:
-- $x$ = Der Datenpunkt (Vektor), dessen Abstand gemessen wird
-- $\mu$ = Der Mittelwertvektor der Verteilung
-- $S^{-1}$ = Die Inverse der Kovarianzmatrix der Verteilung
-- $T$ = Transposition
+Die Kovarianzmatrix kann als:
 
-## Intuitive Herleitung
+\[
+\Sigma = U \Lambda U^T
+\]
 
-Die Mahalanobis-Distanz lässt sich intuitiver verstehen, wenn man sie als zweistufigen Prozess betrachtet:
+zerlegt werden, wobei:
+- \( U \) die Matrix der Eigenvektoren ist
+- \( \Lambda \) die Diagonalmatrix der Eigenwerte ist
 
-1. Whitening Space Transformation der Originaldaten
-2. Berechnung der euklidischen Distanz im transformierten Raum
+---
 
-### Whitening Space Transformation
+# ZCA Whitening Transformation
 
-Die Whitening Space Transformation (auch Statistical Whitening genannt) ist eine Datentransformation, die drei wesentliche Eigenschaften erfüllt:
+ZCA Whitening ist die Inverse der Quadratwurzel der Kovarianzmatrix:
 
-1. **Zentrierung der Daten**
-   $$\mathbb{E}[X] = 0$$
-   Jede Dimension wird so verschoben, dass ihr Mittelwert 0 ist.
+\[
+\mathbf{z}_{\text{zca}} = \Sigma^{-\frac{1}{2}}
+\]
 
-2. **Einheitsvarianz**
-   $$\text{Var}(X_i) = 1$$
-   Jede Dimension wird so skaliert, dass ihre Varianz 1 beträgt.
+Die Whitening-Matrix ist:
 
-3. **Dekorrelation**
-   $$\text{Cov}(X) = I$$
-   Die Kovarianzmatrix der transformierten Daten entspricht der Einheitsmatrix.
+\[
+W_{\text{zca}} = U \Lambda^{\frac{1}{2}} U^T
+\]
 
-Ein spezifisches Beispiel für eine solche Transformation ist die Zero-phase Component Analysis (ZCA) Whitening.
+Alternativ kann es auch als:
 
-## Berechnung in n Dimensionen
+\[
+W_{\text{zca}} = \Sigma^{-\frac{1}{2}}
+\]
 
-In einem n-dimensionalen Raum lässt sich die Mahalanobis-Distanz als Verkettung folgender Schritte verstehen:
+ausgedrückt werden.
 
-1. Transformation der Daten in den Whitening Space
-2. Berechnung der euklidischen Distanz zwischen dem transformierten Datenpunkt und dem (transformierten) Mittelwertvektor
+---
 
-Dies kann mathematisch ausgedrückt werden als:
+# Mahalanobis-Distanz
 
-$$
-D_M(x) = \|W(x-\mu)\|_2
-$$
+Die Mahalanobis-Distanz zwischen einem Vektor \( x \) und dem Mittelwert \( \mu \) ist:
 
-wobei $W$ die Whitening-Transformationsmatrix ist, die sich aus der Kovarianzmatrix ableitet:
+\[
+D_m(x, \mu) = \sqrt{(x - \mu)^T \Sigma^{-1} (x - \mu)}
+\]
 
-$$
-W = S^{-1/2}
-$$
+---
+
+# Euklidische Distanz
+
+Die euklidische Distanz zwischen \( x \) und \( \mu \) ist:
+
+\[
+D_e(x, \mu) = \sqrt{(x - \mu)^T (x - \mu)}
+\]
+
+Die euklidische Distanz zwischen \( x_{\text{zca}} \) und \( y_{\text{zca}} \), unter Verwendung von ZCA Whitening, ist:
+
+\[
+D_e(x_{\text{zca}}, y_{\text{zca}}) = \sqrt{\left( \Sigma^{-\frac{1}{2}} x - \Sigma^{-\frac{1}{2}} \mu \right)^T \left( \Sigma^{-\frac{1}{2}} x - \Sigma^{-\frac{1}{2}} \mu \right)}
+\]
+
+Dies vereinfacht sich zu:
+
+\[
+D_e(x_{\text{zca}}, y_{\text{zca}}) = \sqrt{\left( \Sigma^{-\frac{1}{2}} (x - \mu) \right)^T \left( \Sigma^{-\frac{1}{2}} (x - \mu) \right)}
+\]
+
+Und schließlich:
+
+\[
+D_e(x, \mu) = \sqrt{(x - \mu)^T \Sigma^{-1} (x - \mu)}
