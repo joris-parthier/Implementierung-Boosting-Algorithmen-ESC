@@ -1,0 +1,25 @@
+import math
+import numpy as np
+from scipy.spatial import distance
+b= np.array([            
+              [2,    2],
+              [9,    3],
+              [4,     3]
+              ])
+b_centered =  b - np.mean(b, axis=0)
+co = (1/b_centered.shape[0]) * (b_centered.T @ b_centered)
+E = 1e-5
+U, S, Vh = np.linalg.svd(co)    
+S = np.diag(1/np.sqrt(S))      
+W = U@S@U.T             
+mu =  np.mean(b, axis=0)
+
+DE = math.dist([1,    1],mu)
+x_zca = W@[1,    1]
+mu_zca = W@mu
+
+DE_zca = math.dist(x_zca,mu_zca)
+
+iv = np.linalg.inv(co)
+print(distance.mahalanobis([1,    1], mu, iv))
+print(DE_zca)
