@@ -1,0 +1,15 @@
+eval_2021:
+Your model_for_2021 log loss: 0.3002
+Competitor model_for_2021 log loss: 0.3206
+
+eval_2022:
+Your model_for_2022 log loss: 0.3188
+Competitor model_for_2022 log loss: 0.3569
+
+eval_2023:
+Your model_for_2023 log loss: 0.2813
+Competitor model_for_2023 log loss: 0.3185
+
+eval_2024:
+Your model_for_2024 log loss: 0.2960
+Competitor model_for_2024 log loss: 0.3592
